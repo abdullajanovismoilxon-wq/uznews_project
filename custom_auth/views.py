@@ -3,7 +3,7 @@ from datetime import timedelta
 from django.utils import timezone
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from django.conf import settings
 
 from .forms import CustomUserCreationForm
@@ -74,40 +74,18 @@ def verify_email(request):
 def custom_login(request):
     if request.method == "POST":
         email = request.POST.get("email")
-        try:
-            user = User.objects.get(email=email)
-        except User.DoesNotExist:
-            return render(request, "custom_auth/login.html", {"error": "Bunday email mavjud emas"})
+        password = request.POST.get("password")
 
-        send_verification_code(user)
-        request.session['user_id'] = user.id
-        return redirect("custom_auth:verify_login")
-    return render(request, "custom_auth/login.html")
-
-
-def verify_login(request):
-    if request.method == "POST":
-        code = request.POST.get("code")
-        user_id = request.session.get("user_id")
-        user = User.objects.get(id=user_id)
-        try:
-            verification = EmailVerification.objects.filter(
-                user=user,
-                verification_code=code,
-                is_used=False,
-                expires_at__gt=timezone.now()
-            ).latest('expires_at')
-        except EmailVerification.DoesNotExist:
-            return render(request, "custom_auth/verify_login.html", {"error": "Kod noto‘g‘ri yoki muddati tugagan"})
-
-        verification.is_used = True
-        verification.save()
+        user = authenticate(request, username=email, password=password)
+        if user is None:
+            return render(request, "custom_auth/login.html", {"error": "Email yoki parol noto‘g‘ri"})
 
         login(request, user)
         request.session.set_expiry(86400)  # 1 kun
         return redirect("blogapp:post_list")
 
-    return render(request, "custom_auth/verify_login.html")
+    return render(request, "custom_auth/login.html")
+
 
 
 def custom_logout(request):
