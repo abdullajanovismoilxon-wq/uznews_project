@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block extra_head %}
+  <!-- Open Graph meta teglar -->
+  <meta property="og:title" content="{{ post.title }}">
+  <meta property="og:description" content="{{ post.body|truncatewords:30 }}">
+  {% if post.image %}
+    <meta property="og:image" content="{{ request.build_absolute_uri }}{{ post.image.url }}">
+  {% endif %}
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:type" content="article">
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10">
+    <div class="card shadow-sm mb-4">
+      {% if post.image %}
+        <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+      {% endif %}
+      <div class="card-body">
+        <h3 class="card-title">{{ post.title }}</h3>
+        <p class="card-text">{{ post.body|linebreaks }}</p>
+      </div>
+      <div class="card-footer text-muted">
+        Muallif: {{ post.author }} | {{ post.publish|date:"d M Y, H:i" }}
+      </div>
+    </div>
+
+    <!-- Izohlar -->
+    <h4 class="mb-3">Izohlar</h4>
+    {% for comment in comments %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ comment.name }} ({{ comment.created|date:"d M Y, H:i" }})
+          </h6>
+          <p class="card-text">{{ comment.body|linebreaks }}</p>
+        </div>
+      </div>
+    {% empty %}
+      <p>Hozircha izohlar yo‘q.</p>
+    {% endfor %}
+
+    <!-- Yangi izoh qo‘shish -->
+    <div class="card mt-4">
+      <div class="card-header bg-primary text-white">
+        Yangi izoh qo‘shish
+      </div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ comment_form.as_p }}
+          <button type="submit" class="btn btn-success">Izoh yuborish</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <a href="{% url 'blogapp:post_list' %}" class="btn btn-secondary">
+        ⬅️
+      </a>
+      <a href="https://t.me/share/url?url={{ request.build_absolute_uri }}&text={{ post.title }}"
+         target="_blank"
+         class="btn btn-light">
+         <img src="{% static 'images/telegram.png' %}" alt="Telegram" width="24" height="24">
+      </a>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+

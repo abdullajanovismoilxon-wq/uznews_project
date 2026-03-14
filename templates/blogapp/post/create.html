@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Yangi post yaratish{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-header bg-primary text-white">
+        <h4>Yangi post yaratish</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button type="submit" class="btn btn-success">Saqlash</button>
+          <a href="{% url 'blogapp:post_list' %}" class="btn btn-secondary">Bekor qilish</a>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

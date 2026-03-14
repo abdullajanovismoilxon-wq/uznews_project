@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+  <!-- Sidebar toggle tugmasi (mobil uchun) -->
+  <div class="col-12 mb-3">
+    <button class="btn btn-dark" type="button" data-bs-toggle="collapse" data-bs-target="#dashboardSidebar" aria-expanded="false" aria-controls="dashboardSidebar">
+      ☰ Admin menyu
+    </button>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="col-md-3">
+    <div class="collapse show" id="dashboardSidebar">
+      <div class="dashboard-sidebar">
+        <h4>⚙️ Admin Panel</h4>
+        <a href="#posts">📑 Postlar</a>
+        <a href="#comments">💬 Izohlar</a>
+        <a href="#categories">📂 Kategoriyalar</a>
+        <a href="{% url 'dashboard:category_create' %}">➕ Yangi kategoriya</a>
+        <a href="{% url 'custom_auth:logout' %}">🚪 Chiqish</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="col-md-9 dashboard-container">
+    <h2 class="mb-4">Blog Admin Dashboard</h2>
+
+    <!-- Postlar -->
+    <h4 id="posts">Postlar</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Status</th>
+          <th>Muallif</th>
+          <th>Publish</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for post in posts %}
+        <tr>
+          <td>{{ post.title }}</td>
+          <td>{{ post.get_status_display }}</td>
+          <td>{{ post.author }}</td>
+          <td>{{ post.publish|date:"d M Y, H:i" }}</td>
+          <td>
+            <a href="{% url 'blogapp:post_detail' post.id %}" class="btn btn-sm btn-primary">Ko‘rish</a>
+            <a href="{% url 'dashboard:post_update' post.id %}" class="btn btn-sm btn-warning">Tahrirlash</a>
+            <a href="{% url 'dashboard:post_delete' post.id %}" class="btn btn-sm btn-danger">O‘chirish</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Izohlar -->
+    <h4 id="comments">Izohlar</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Post</th>
+          <th>Izohchi</th>
+          <th>Matn</th>
+          <th>Holat</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment in comments %}
+        <tr>
+          <td>{{ comment.post.title }}</td>
+          <td>{{ comment.name }}</td>
+          <td>{{ comment.body|truncatewords:10 }}</td>
+          <td>{{ comment.active|yesno:"Faol,NoFaol" }}</td>
+          <td>
+            <a href="{% url 'dashboard:comment_delete' comment.id %}" class="btn btn-sm btn-danger">O‘chirish</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Kategoriyalar -->
+    <h4 id="categories">Kategoriyalar</h4>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Nomi</th>
+          <th>Amallar</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for cat in categories %}
+        <tr>
+          <td>{{ cat.name }}</td>
+          <td>
+            <a href="{% url 'dashboard:category_update' cat.id %}" class="btn btn-sm btn-warning">Tahrirlash</a>
+            <a href="{% url 'dashboard:category_delete' cat.id %}" class="btn btn-sm btn-danger">O‘chirish</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{% url 'dashboard:category_create' %}" class="btn btn-success">+ Yangi kategoriya qo‘shish</a>
+  </div>
+</div>
+{% endblock %}

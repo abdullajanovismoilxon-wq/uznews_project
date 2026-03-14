@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Postni tahrirlash{% endblock %}
+
+{% block content %}
+<div class="container">
+  <h2>Postni tahrirlash: {{ post.title }}</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Saqlash</button>
+    <a href="{% url 'dashboard:dashboard_home' %}" class="btn btn-secondary">Bekor qilish</a>
+  </form>
+</div>
+{% endblock %}

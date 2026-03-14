@@ -1,0 +1,174 @@
+/* Umumiy body */
+body {
+    background-color: #f8f9fa; /* Bootstrap default background */
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.3rem;
+}
+
+.nav-link {
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important; /* hoverda sariq rang */
+}
+
+/* Card */
+.card {
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* hoverda biroz ko‘tariladi */
+}
+
+/* Footer */
+footer {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+
+/* Dashboard umumiy konteyner */
+.dashboard-container {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+/* Sarlavhalar */
+.dashboard-container h2 {
+    font-weight: bold;
+    color: #343a40;
+    margin-bottom: 20px;
+}
+
+.dashboard-container h4 {
+    font-weight: 600;
+    color: #495057;
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+/* Jadval */
+.dashboard-container table {
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.dashboard-container table th {
+    background-color: #212529;
+    color: #fff;
+    text-align: center;
+}
+
+.dashboard-container table td {
+    vertical-align: middle;
+}
+
+/* Tugmalar */
+.dashboard-container .btn {
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.dashboard-container .btn:hover {
+    transform: scale(1.05);
+}
+
+.dashboard-container .btn-success {
+    background-color: #28a745;
+    border: none;
+}
+
+.dashboard-container .btn-warning {
+    background-color: #ffc107;
+    border: none;
+    color: #212529;
+}
+
+.dashboard-container .btn-danger {
+    background-color: #dc3545;
+    border: none;
+}
+
+.dashboard-container .btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+/* Sidebar (agar qo‘shmoqchi bo‘lsak) */
+.dashboard-sidebar {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.dashboard-sidebar a {
+    color: #ffc107;
+    display: block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+
+
+.dashboard-sidebar {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    height: 100%;
+}
+
+.dashboard-sidebar h4 {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.dashboard-sidebar a {
+    color: #ffc107;
+    display: block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.dashboard-sidebar a:hover {
+    color: #fff;
+}
+.dashboard-sidebar {
+    background-color: #343a40;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.dashboard-sidebar h4 {
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.dashboard-sidebar a {
+    color: #ffc107;
+    display: block;
+    margin-bottom: 10px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+
