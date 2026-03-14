@@ -34,7 +34,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = []  # superuser yaratishda email va password kifoya
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 

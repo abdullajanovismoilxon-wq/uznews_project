@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comment, Post, Category   # Category ni ham import qilamiz
+from .models import Comment, Post, Category
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -23,23 +23,7 @@ class CommentForm(forms.ModelForm):
             'body': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
         }
 
-class EmailPostForm(forms.Form):
-    name = forms.CharField(
-        max_length=25,
-        widget=forms.TextInput(attrs={'class': 'form-control'})
-    )
-    email = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
-    )
-    to = forms.EmailField(
-        widget=forms.EmailInput(attrs={'class': 'form-control'})
-    )
-    comments = forms.CharField(
-        required=False,
-        widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 4})
-    )
 
-# 🔥 Yangi qo‘shiladigan CategoryForm
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category

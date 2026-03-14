@@ -23,12 +23,11 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Bizning app’lar
-    path('', include('blogapp.urls')),          # blogapp asosiy sahifa
-    path('auth/', include('custom_auth.urls')), # custom_auth login/register
+    path('', include('blogapp.urls')),
+    path('auth/', include('custom_auth.urls')),
     path("dashboard/", include("dashboard.urls")),
 ]
 
-# Static va Media fayllar uchun
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

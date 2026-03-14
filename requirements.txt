@@ -1,2 +1,5 @@
 Django==5.0.3
-python-dotenv
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1
+django-anymail==10.3
+Pillow==10.2.0

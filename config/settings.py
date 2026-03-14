@@ -29,7 +29,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # Bizning app’lar
     'blogapp',
     'custom_auth',
     "dashboard",
@@ -50,7 +49,6 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # tashqi templates papka
         'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -90,7 +88,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # Internationalization
-LANGUAGE_CODE = 'uz'   # Uzbek tilida
+LANGUAGE_CODE = 'uz'
 TIME_ZONE = 'Asia/Tashkent'
 USE_I18N = True
 USE_TZ = True
@@ -120,6 +118,5 @@ AUTH_USER_MODEL = 'custom_auth.User'
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Login va Logout redirect
 LOGIN_REDIRECT_URL = 'blogapp:post_list'
 LOGOUT_REDIRECT_URL = 'blogapp:post_list'

@@ -6,15 +6,9 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.db.models import Q
 from django.http import JsonResponse, Http404
-from .forms import CommentForm, EmailPostForm, PostForm
+from .forms import CommentForm, PostForm
 from .models import Post, Category
 
-
-# class PostListView(ListView):
-#     queryset = Post.published.all()
-#     context_object_name = 'posts'
-#     paginate_by = 20
-#     template_name = "blogapp/post/list.html"
 
 def category_posts(request, id):
     category = get_object_or_404(Category, id=id)
@@ -25,21 +19,15 @@ def category_posts(request, id):
     })
 
 
-
-# Post ro‘yxati (Bosh sahifa)
 def post_list(request):
     posts = Post.published.all().order_by('-publish')
     return render(request, "blogapp/post/list.html", {"posts": posts})
 
 
-# Post tafsiloti
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
-
-    # Agar published bo‘lsa → hammaga ko‘rinadi
     if post.status == "published":
         pass
-    # Agar draft bo‘lsa → faqat muallif yoki admin ko‘ra oladi
     elif post.status == "draft":
         if post.author != request.user and not request.user.is_staff:
             raise Http404("Post topilmadi")
@@ -66,7 +54,6 @@ def post_detail(request, id):
                   })
 
 
-# Yangi post yaratish
 @login_required
 def post_create(request):
     if request.method == "POST":
@@ -85,7 +72,6 @@ def post_create(request):
     return render(request, "blogapp/post/create.html", {"form": form})
 
 
-# Qidiruv
 def post_search(request):
     query = request.GET.get("q")
     results = []
@@ -109,7 +95,6 @@ def search_suggestions(request):
     return JsonResponse(suggestions, safe=False)
 
 
-# User profil sahifasi
 @login_required
 def user_profile(request):
     posts = Post.objects.filter(author=request.user).order_by('-publish')

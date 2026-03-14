@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
-from custom_auth.models import User   # agar custom user ishlatayotgan bo‘lsangiz
+from custom_auth.models import User
 
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -45,7 +45,6 @@ class Post(models.Model):
     published = PublishedManager()
 
     def get_absolute_url(self):
-        # Endi biz post_detail view’ini id orqali chaqiryapmiz
         return reverse("blogapp:post_detail", args=[self.id])
 
 

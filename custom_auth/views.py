@@ -33,7 +33,7 @@ def register(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False  # tasdiqlanmaguncha aktiv emas
+            user.is_active = False
             user.save()
             send_verification_code(user)
             request.session['user_id'] = user.id
