@@ -19,6 +19,7 @@
         <a href="#comments">💬 Izohlar</a>
         <a href="#categories">📂 Kategoriyalar</a>
         <a href="{% url 'dashboard:category_create' %}">➕ Yangi kategoriya</a>
+        <a href="{% url 'dashboard:user_list' %}">👥 Foydalanuvchilar</a>
         <a href="{% url 'custom_auth:logout' %}">🚪 Chiqish</a>
       </div>
     </div>
@@ -51,6 +52,9 @@
             <a href="{% url 'blogapp:post_detail' post.id %}" class="btn btn-sm btn-primary">Ko‘rish</a>
             <a href="{% url 'dashboard:post_update' post.id %}" class="btn btn-sm btn-warning">Tahrirlash</a>
             <a href="{% url 'dashboard:post_delete' post.id %}" class="btn btn-sm btn-danger">O‘chirish</a>
+            <a href="{% url 'dashboard:post_status' post.id %}" class="btn btn-sm btn-info">
+              {% if post.status == "draft" %}Publish{% else %}Draft{% endif %}
+            </a>
           </td>
         </tr>
         {% endfor %}
