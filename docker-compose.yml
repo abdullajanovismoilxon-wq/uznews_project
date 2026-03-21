@@ -19,7 +19,7 @@ services:
     container_name: postgres_db
     environment:
       POSTGRES_DB: uznews_db
-      POSTGRES_USER: uznews_user
+      POSTGRES_USER: kurs_ishi
       POSTGRES_PASSWORD: uznews_password
     ports:
       - "5432:5432"
