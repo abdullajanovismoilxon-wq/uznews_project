@@ -17,8 +17,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+DEBUG = False
+ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz"]
 
 # Application definition
 INSTALLED_APPS = [
@@ -96,6 +96,12 @@ USE_TZ = True
 # Static files
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://uznews.com.uz",
+    "http://uznews.com.uz"
+]
+
 
 
 LOGIN_URL = "custom_auth:login"
