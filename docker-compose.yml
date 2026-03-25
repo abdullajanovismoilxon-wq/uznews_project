@@ -20,7 +20,7 @@ services:
     environment:
       POSTGRES_DB: uznews_db
       POSTGRES_USER: kurs_ishi
-      POSTGRES_PASSWORD: uznews_password
+      POSTGRES_PASSWORD: ismoilo9
     ports:
       - "5432:5432"
     volumes:
