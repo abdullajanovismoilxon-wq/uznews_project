@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz"]
 
 # Application definition
@@ -118,7 +118,7 @@ DEFAULT_FROM_EMAIL = f"UzNews <{EMAIL_HOST_USER}>"
 
 # Media files
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'custom_auth.User'
 # Default primary key field type
