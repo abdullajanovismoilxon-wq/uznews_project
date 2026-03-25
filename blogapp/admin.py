@@ -1,10 +1,12 @@
 from django.contrib import admin
+from django.utils.html import format_html
+
 from .models import Post, Comment, Category
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'slug', 'author', 'publish', 'status')
+    list_display = ('title', 'slug', 'image_tag', 'author', 'publish', 'status')
     list_filter = ('status', 'created', 'publish', 'author')
     search_fields = ('title', 'body')
     prepopulated_fields = {'slug': ('title', )}
@@ -12,6 +14,12 @@ class PostAdmin(admin.ModelAdmin):
     date_hierarchy = 'publish'
     ordering = ('status', 'publish')
 
+    def image_tag(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" width="50" height="50" />'.format(obj.image.url))
+        return "-"
+
+    image_tag.short_description = 'Image'
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
