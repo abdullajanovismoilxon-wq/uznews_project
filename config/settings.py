@@ -18,7 +18,7 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
-ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz", '127.0.0.1', 'localhost',]
+ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz", '127.0.0.1', 'localhost', '10.135.25.157']
 
 # Application definition
 INSTALLED_APPS = [
@@ -95,7 +95,7 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 CSRF_TRUSTED_ORIGINS = [
     "https://uznews.com.uz",
