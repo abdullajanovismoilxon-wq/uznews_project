@@ -18,7 +18,7 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
-ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz"]
+ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz", '127.0.0.1', 'localhost',]
 
 # Application definition
 INSTALLED_APPS = [
