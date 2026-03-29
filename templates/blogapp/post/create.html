@@ -9,8 +9,15 @@
         <h4>Yangi post yaratish</h4>
       </div>
       <div class="card-body">
-        <form method="post" enctype="multipart/form-data">
+        <form method="POST" enctype="multipart/form-data" onsubmit="tinymce.triggerSave();">
           {% csrf_token %}
+
+          {% if form.errors %}
+          <div class="alert alert-danger">
+              {{ form.errors }}
+          </div>
+          {% endif %}
+
           {{ form.as_p }}
           <button type="submit" class="btn btn-success">Saqlash</button>
           <a href="{% url 'blogapp:post_list' %}" class="btn btn-secondary">Bekor qilish</a>

@@ -1,6 +1,5 @@
 import os
 
-from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
@@ -8,6 +7,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.db.models import Q
 from django.http import JsonResponse, Http404
+from django.views.decorators.csrf import csrf_exempt
 
 from config import settings
 from .forms import CommentForm, PostForm
@@ -39,7 +39,7 @@ def post_list(request):
 
 
 
-def post_detail(request, id=id):
+def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
 
     # status tekshirish
@@ -87,6 +87,7 @@ def post_detail(request, id=id):
 @login_required
 def post_create(request):
     if request.method == "POST":
+        print("POST KELDI 🔥")
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             new_post = form.save(commit=False)
@@ -95,14 +96,18 @@ def post_create(request):
             new_post.status = "draft"
             if not new_post.slug:
                 new_post.slug = slugify(new_post.title)
+            print("VALID 🔥")
             new_post.save()
             return redirect(new_post.get_absolute_url())
+        else:
+            print("ERROR:", form.errors)
     else:
         form = PostForm()
     return render(request, "blogapp/post/create.html", {"form": form})
 
 
 @login_required
+@csrf_exempt
 def upload_image(request):
     if request.method == 'POST':
         image = request.FILES.get('file')

@@ -43,6 +43,7 @@ TINYMCE_DEFAULT_CONFIG = {
     "toolbar": "undo redo | bold italic | alignleft aligncenter alignright | image media link | code",
     "automatic_uploads": True,
     "file_picker_types": "image",
+    "images_upload_url": "/upload/",
     "file_picker_callback": """
         function (callback, value, meta) {
             var input = document.createElement('input');
