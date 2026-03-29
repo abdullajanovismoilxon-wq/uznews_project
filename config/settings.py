@@ -39,11 +39,11 @@ INSTALLED_APPS = [
 TINYMCE_DEFAULT_CONFIG = {
     "height": 500,
     "width": "100%",
-    "plugins": "image link media table code",
-    "toolbar": "undo redo | bold italic | alignleft aligncenter alignright | image media link | code",
+    "plugins": "link table code",
+    "toolbar": "undo redo | bold italic | alignleft aligncenter alignright | link | code",
     "automatic_uploads": True,
-    "file_picker_types": "image",
-    "images_upload_url": "/upload/",
+    # "file_picker_types": "image",
+    # "images_upload_url": "/upload/",
     "file_picker_callback": """
         function (callback, value, meta) {
             var input = document.createElement('input');

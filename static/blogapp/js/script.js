@@ -290,8 +290,8 @@ document.addEventListener("DOMContentLoaded", function () {
     tinymce.init({
         selector: '#post_body',
         height: 500,
-        plugins: 'image link media table code',
-        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | image media link | code',
+        plugins: 'linktable code',
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | link | code',
         images_upload_url: '/upload/',
         automatic_uploads: true,
         file_picker_types: 'image',

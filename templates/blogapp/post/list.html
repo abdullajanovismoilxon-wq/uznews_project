@@ -5,7 +5,7 @@
   <h2 class="mb-4">So‘nggi postlar</h2>
   <div id="postContainer" class="row">
     {% for post in posts %}
-      <div class="col-6 col-md-4 mb-4">
+      <div class="col-12 col-md-4 mb-4">
         <div class="card h-100 shadow-sm">
           {% if post.image %}
             <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
