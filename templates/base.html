@@ -80,6 +80,11 @@
 
   <!-- TinyMCE JS -->
   <script src="{% static 'tinymce/tinymce.min.js' %}"></script>
+    <script>
+      tinymce.init({
+        selector: '#post_body'
+      });
+    </script>
 
   <!-- Blogapp JS (bu yerda tinymce.init() bor) -->
   <script src="{% static 'blogapp/js/script.js' %}"></script>

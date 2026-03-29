@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
     tinymce.init({
-        selector: 'textarea',  // barcha textarea maydonlarini editor qiladi
+        selector: '#post_body',
         height: 500,
         plugins: 'image link media table code',
         toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | image media link | code',

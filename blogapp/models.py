@@ -1,7 +1,6 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
-from django.utils.text import slugify
 
 from custom_auth.models import User
 from tinymce.models import HTMLField
@@ -55,7 +54,6 @@ class Post(models.Model):
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
     name = models.CharField(max_length=80)
-    email = models.EmailField()
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
