@@ -16,13 +16,14 @@
 {% block content %}
 <div class="row justify-content-center">
   <div class="col-md-10">
+    <!-- Asosiy post -->
     <div class="card shadow-sm mb-4">
       {% if post.image %}
         <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
       {% endif %}
       <div class="card-body">
         <h3 class="card-title">{{ post.title }}</h3>
-        <p class="card-text">{{ post.body|linebreaks }}</p>
+        <p class="card-text">{{ post.body|safe }}</p>
       </div>
       <div class="card-footer text-muted">
         Muallif: {{ post.author }} | {{ post.publish|date:"d M Y, H:i" }}
@@ -69,7 +70,36 @@
       </a>
     </div>
 
+    <!-- Shu kabi postlar -->
+    {% if related_posts %}
+      <h4 class="mt-5">Shu kategoriyadagi postlar</h4>
+      <div id="relatedContainer" class="row">
+        {% for rpost in related_posts %}
+          <div class="col-6 col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+              {% if rpost.image %}
+                <img src="{{ rpost.image.url }}" class="card-img-top" alt="{{ rpost.title }}">
+              {% endif %}
+              <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ rpost.title }}</h5>
+                <p class="card-text text-muted">{{ rpost.body|striptags|truncatewords:15 }}</p>
+                <a href="{{ rpost.get_absolute_url }}" class="btn btn-primary mt-auto">O‘qish</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if page_obj.has_next %}
+        <div class="text-center mt-4">
+          <a href="?page={{ page_obj.next_page_number }}"
+             id="loadMoreRelated"
+             data-url="?page={{ page_obj.next_page_number }}"
+             class="btn btn-outline-primary">Yana +3 ta...</a>
+        </div>
+      {% endif %}
+    {% endif %}
+
   </div>
 </div>
 {% endblock %}
-

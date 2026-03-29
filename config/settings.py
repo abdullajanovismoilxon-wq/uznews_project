@@ -18,7 +18,7 @@ load_dotenv(BASE_DIR / ".env")
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = True
-ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz", '127.0.0.1', 'localhost', '10.135.25.157']
+ALLOWED_HOSTS = ["uznews.com.uz", "www.uznews.com.uz", '127.0.0.1', '127.0.0.1:8000','localhost',]
 
 # Application definition
 INSTALLED_APPS = [
@@ -32,7 +32,35 @@ INSTALLED_APPS = [
     'blogapp',
     'custom_auth',
     "dashboard",
+
+    'tinymce',
 ]
+
+TINYMCE_DEFAULT_CONFIG = {
+    "height": 500,
+    "width": "100%",
+    "plugins": "image link media table code",
+    "toolbar": "undo redo | bold italic | alignleft aligncenter alignright | image media link | code",
+    "automatic_uploads": True,
+    "file_picker_types": "image",
+    "file_picker_callback": """
+        function (callback, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = function () {
+                var file = this.files[0];
+                var reader = new FileReader();
+                reader.onload = function () {
+                    callback(reader.result, { alt: file.name });
+                };
+                reader.readAsDataURL(file);
+            };
+            input.click();
+        }
+    """,
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -95,7 +123,7 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 CSRF_TRUSTED_ORIGINS = [
     "https://uznews.com.uz",

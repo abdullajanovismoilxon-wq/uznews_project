@@ -50,4 +50,80 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        const url = this.getAttribute("data-url");
+
+        fetch(url)
+            .then(response => response.text())
+            .then(data => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, "text/html");
+            const newPosts = doc.querySelectorAll("#postContainer .post-card");
+            const postContainer = document.getElementById("postContainer");
+
+            newPosts.forEach(post => postContainer.appendChild(post));
+
+            const newBtn = doc.querySelector("#loadMoreBtn");
+            if (newBtn) {
+                this.setAttribute("href", newBtn.getAttribute("href"));
+                this.setAttribute("data-url", newBtn.getAttribute("data-url"));
+            } else {
+                this.remove();
+            }
+            });
+        });
+    }
+    // Detail sahifada "Shu kabi" uchun
+    const loadMoreRelated = document.getElementById("loadMoreRelated");
+    if (loadMoreRelated) {
+        loadMoreRelated.addEventListener("click", function(e) {
+            e.preventDefault();
+            const url = this.getAttribute("data-url");
+
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    const parser = new DOMParser();
+                    const doc = parser.parseFromString(data, "text/html");
+                    const newPosts = doc.querySelectorAll("#relatedContainer .col-md-4");
+                    const relatedContainer = document.getElementById("relatedContainer");
+
+                    newPosts.forEach(post => relatedContainer.appendChild(post));
+
+                    const newBtn = doc.querySelector("#loadMoreRelated");
+                    if (newBtn) {
+                        this.setAttribute("href", newBtn.getAttribute("href"));
+                        this.setAttribute("data-url", newBtn.getAttribute("data-url"));
+                    } else {
+                        this.remove();
+                    }
+                });
+        });
+    }
+    tinymce.init({
+        selector: 'textarea',  // barcha textarea maydonlarini editor qiladi
+        height: 500,
+        plugins: 'image link media table code',
+        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | image media link | code',
+        images_upload_url: '/upload/',
+        automatic_uploads: true,
+        file_picker_types: 'image',
+        file_picker_callback: function (callback, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+            input.onchange = function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onload = function () {
+                callback(reader.result, { alt: file.name });
+            };
+            reader.readAsDataURL(file);
+            };
+            input.click();
+        }
+        });
 });

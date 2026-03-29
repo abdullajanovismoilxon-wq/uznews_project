@@ -1,5 +1,6 @@
 from django import forms
 from .models import Comment, Post, Category
+from tinymce.widgets import TinyMCE
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -8,7 +9,7 @@ class PostForm(forms.ModelForm):
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'slug': forms.TextInput(attrs={'class': 'form-control'}),
-            'body': forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
+            'body': TinyMCE(attrs={'cols': 80, 'rows': 30}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-select'}),
         }

@@ -22,7 +22,7 @@
               <div class="card-body d-flex flex-column">
                 <h5 class="card-title">{{ post.title }}</h5>
                 <p class="card-text text-muted">
-                  {{ post.body|truncatewords:20 }}
+                  {{ post.body|striptags|truncatewords:30}}
                 </p>
 
                 <!-- Badge va tugma bir qatorda -->
@@ -34,6 +34,8 @@
                     {{ post.get_status_display }}
                   </span>
                   <a href="{{ post.get_absolute_url }}" class="btn btn-primary btn-sm">Ko‘rish</a>
+                  <a href="{% url 'blogapp:user_post_update' post.id %}" class="btn btn-warning btn-sm">Tahrirlash</a>
+                  <a href="{% url 'blogapp:user_post_delete' post.id %}" class="btn btn-danger btn-sm">O'chirish</a>
                 </div>
               </div>
               <div class="card-footer text-muted">
