@@ -1,0 +1,19 @@
+{% for post in posts %}
+<div class="col-12 col-md-4 mb-4 post-card">
+    <div class="card h-100 shadow-sm">
+        {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}">
+        {% endif %}
+        <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ post.title }}</h5>
+            <p class="card-text text-muted">{{ post.body|striptags|truncatewords:30 }}</p>
+            <a href="{{ post.get_absolute_url }}" class="btn btn-primary mt-auto">O‘qish</a>
+        </div>
+        <div class="card-footer text-muted">
+            Muallif: {{ post.author }} | {{ post.publish|date:"d M Y" }}
+        </div>
+    </div>
+</div>
+{% empty %}
+<p>Hozircha postlar yo‘q.</p>
+{% endfor %}

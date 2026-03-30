@@ -219,26 +219,29 @@ document.addEventListener("DOMContentLoaded", function () {
        ✅ LOAD MORE (POST LIST)
     ======================== */
     const loadMoreBtn = document.getElementById("loadMoreBtn");
+    if (newBtn) {
+        this.setAttribute("data-url", newBtn.getAttribute("data-url"));
+    } else {
+        this.remove();
+    }
 
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener("click", function (e) {
             e.preventDefault();
-
             const url = this.getAttribute("data-url");
 
-            fetch(url)
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
                 .then(response => response.text())
                 .then(data => {
                     const parser = new DOMParser();
                     const doc = parser.parseFromString(data, "text/html");
 
-                    const newPosts = doc.querySelectorAll("#postContainer .post-card");
+                    const newPosts = doc.querySelectorAll(".post-card");
                     const postContainer = document.getElementById("postContainer");
 
                     newPosts.forEach(post => postContainer.appendChild(post));
 
                     const newBtn = doc.querySelector("#loadMoreBtn");
-
                     if (newBtn) {
                         this.setAttribute("data-url", newBtn.getAttribute("data-url"));
                     } else {
