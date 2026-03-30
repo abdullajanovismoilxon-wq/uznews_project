@@ -94,12 +94,11 @@ def comment_delete(request, id):
     return render(request, "dashboard/comment/comment_delete.html", {"comment": comment})
 
 
-
-
 @staff_member_required
 def user_list(request):
     users = User.objects.all().order_by("-created_at")
     return render(request, "dashboard/users/user_list.html", {"users": users})
+
 
 @staff_member_required
 def user_update(request, id):
@@ -112,6 +111,7 @@ def user_update(request, id):
     else:
         form = UserUpdateForm(instance=user)
     return render(request, "dashboard/users/user_form.html", {"form": form, "user": user})
+
 
 @staff_member_required
 def user_delete(request, id):

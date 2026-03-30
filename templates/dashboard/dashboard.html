@@ -68,6 +68,7 @@
         <tr>
           <th>Post</th>
           <th>Izohchi</th>
+          <th>Email</th>
           <th>Matn</th>
           <th>Holat</th>
           <th>Amallar</th>
@@ -78,6 +79,7 @@
         <tr>
           <td>{{ comment.post.title }}</td>
           <td>{{ comment.name }}</td>
+          <td>{{ comment.email }}</td>
           <td>{{ comment.body|truncatewords:10 }}</td>
           <td>{{ comment.active|yesno:"Faol,NoFaol" }}</td>
           <td>

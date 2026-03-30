@@ -12,7 +12,6 @@ urlpatterns = [
     path('user/profile/', views.user_profile, name='user_profile'),
     path('profile/post/<int:id>/update/', views.user_post_update, name='user_post_update'),
     path('profile/post/<int:id>/delete/', views.user_post_delete, name='user_post_delete'),
-    path('upload/', views.upload_image, name='upload_image'),
 
     path('category/<int:id>/', views.category_posts, name='category_posts'),
     path("search/", views.post_search, name="post_search"),

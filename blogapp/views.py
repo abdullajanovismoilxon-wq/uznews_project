@@ -106,24 +106,6 @@ def post_create(request):
     return render(request, "blogapp/post/create.html", {"form": form})
 
 
-@login_required
-@csrf_exempt
-def upload_image(request):
-    if request.method == 'POST':
-        image = request.FILES.get('file')
-        if image:
-            # Faylni media/posts/ ichiga saqlash
-            image_path = os.path.join('posts', image.name)
-            full_path = os.path.join(settings.MEDIA_ROOT, image_path)
-
-            with open(full_path, 'wb+') as destination:
-                for chunk in image.chunks():
-                    destination.write(chunk)
-
-            return JsonResponse({'location': settings.MEDIA_URL + image_path})
-    return JsonResponse({'error': 'Upload failed'}, status=400)
-
-
 def post_search(request):
     query = request.GET.get("q")
     results = []
