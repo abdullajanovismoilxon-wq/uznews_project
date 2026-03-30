@@ -25,17 +25,12 @@ def category_posts(request, id):
 
 def post_list(request):
     posts = Post.published.all().order_by('-publish')
-    paginator = Paginator(posts, 6)
-    page_number = request.GET.get('page', 1)
-    page_obj = paginator.get_page(page_number)
 
-    # AJAX uchun check
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        # faqat postlar HTML fragment qaytarsin
-        return render(request, 'blogapp/post/post_list_partial.html', {
-            'posts': page_obj.object_list,
-            'page_obj': page_obj
-        })
+    page_number = request.GET.get('page', '1')
+    per_page = 3 if page_number == '1' else 3
+
+    paginator = Paginator(posts, per_page)
+    page_obj = paginator.get_page(page_number)
 
     return render(request, 'blogapp/post/list.html', {
         'posts': page_obj.object_list,
