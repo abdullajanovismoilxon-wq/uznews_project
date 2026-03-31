@@ -1,18 +1,13 @@
-import os
-
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-# from django.views.generic import ListView
 from django.utils.text import slugify
 from django.db.models import Q
 from django.http import JsonResponse, Http404
-from django.views.decorators.csrf import csrf_exempt
-
-from config import settings
 from .forms import CommentForm, PostForm
 from .models import Post, Category
 from django.core.paginator import Paginator
+
 
 def category_posts(request, id):
     category = get_object_or_404(Category, id=id)
@@ -42,14 +37,13 @@ def post_list(request):
 def post_detail(request, id):
     post = get_object_or_404(Post, id=id)
 
-    # status tekshirish
     if post.status == "published":
         pass
     elif post.status == "draft":
         if post.author != request.user and not request.user.is_staff:
             raise Http404("Post topilmadi")
 
-    # izohlar
+
     comments = post.comments.filter(active=True)
     new_comment = None
 
@@ -62,12 +56,10 @@ def post_detail(request, id):
     else:
         comment_form = CommentForm()
 
-    # shu postning kategoriyasiga oid boshqa postlar
     related_posts = Post.objects.filter(
         category=post.category, status="published"
     ).exclude(id=post.id).order_by('-publish')
 
-    # paginator: har safar 3 ta
     page_number = request.GET.get('page', 1)
     paginator = Paginator(related_posts, 3)
     page_obj = paginator.get_page(page_number)
@@ -87,7 +79,6 @@ def post_detail(request, id):
 @login_required
 def post_create(request):
     if request.method == "POST":
-        print("POST KELDI 🔥")
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             new_post = form.save(commit=False)
@@ -96,7 +87,6 @@ def post_create(request):
             new_post.status = "draft"
             if not new_post.slug:
                 new_post.slug = slugify(new_post.title)
-            print("VALID 🔥")
             new_post.save()
             return redirect(new_post.get_absolute_url())
         else:
@@ -124,7 +114,7 @@ def search_suggestions(request):
     if query:
         posts = Post.published.filter(
             Q(title__icontains=query) | Q(body__icontains=query)
-        )[:5]  # faqat 5 ta natija
+        )[:5]
         suggestions = [{"id": p.id, "title": p.title} for p in posts]
     return JsonResponse(suggestions, safe=False)
 
